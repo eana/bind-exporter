@@ -42,4 +42,4 @@ RUN set -ex \
 
 EXPOSE 9119
 
-CMD bind_exporter -bind.statsuri $URI
+CMD bind_exporter -bind.stats-url $URI
