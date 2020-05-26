@@ -1,20 +1,9 @@
+FROM golang:1.14.3-alpine3.11 AS build-env
+RUN set -ex && \
+    apk add --update --no-cache git && \
+    go get -v github.com/digitalocean/bind_exporter
+
 FROM alpine:3.11.6
-
-RUN set -ex \
-    && apk add --no-cache --virtual .build-deps \
-        git \
-        bash \
-        gcc \
-        musl-dev \
-        openssl \
-        go \
-        curl \
-    \
-    && go get -v github.com/digitalocean/bind_exporter \
-    && cp /root/go/bin/bind_exporter /usr/local/bin \
-    && rm -fr /root/go \
-    && apk del .build-deps
-
+COPY --from=build-env /go/bin/bind_exporter /usr/local/bin/
 EXPOSE 9119
-
 CMD bind_exporter -bind.stats-url $URI
