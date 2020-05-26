@@ -1,7 +1,7 @@
 FROM golang:1.14.3-alpine3.11 AS build-env
 RUN set -ex && \
     apk add --update --no-cache git && \
-    go get -v github.com/digitalocean/bind_exporter
+    go get -v github.com/prometheus-community/bind_exporter
 
 FROM alpine:3.11.6
 COPY --from=build-env /go/bin/bind_exporter /usr/local/bin/
