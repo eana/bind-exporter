@@ -1,4 +1,4 @@
-FROM golang:1.14.6-alpine3.11 AS build-env
+FROM golang:1.14.7-alpine3.11 AS build-env
 RUN set -ex && \
     apk add --update --no-cache git && \
     go get -v github.com/prometheus-community/bind_exporter
