@@ -24,11 +24,15 @@ workflows:
   test_build:
     jobs:
       - docker_test_build:
-          context: docker-publish
+          context:
+            - docker-publish
+            - aws_svc_circleci
   build_and_push:
     jobs:
       - docker_build_and_push:
-          context: docker-publish
+          context:
+            - docker-publish
+            - aws_svc_circleci
           filters:
             branches:
               ignore: /.*/
